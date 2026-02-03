@@ -11,6 +11,7 @@ import {
     Star,
     Code,
 } from "lucide-react";
+import Navbar from "@/components/common/Navbar";
 
 const features = [
     {
@@ -64,54 +65,7 @@ export default function Home() {
     return (
         <main className="min-h-screen">
             {/* Navigation */}
-            <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex justify-between items-center h-16">
-                        <div className="flex items-center gap-2">
-                            <div className="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
-                                <Zap className="w-5 h-5 text-white" />
-                            </div>
-                            <span className="text-xl font-bold text-slate-900">
-                                EventFlow
-                            </span>
-                        </div>
-                        <div className="hidden md:flex items-center gap-8">
-                            <a
-                                href="#features"
-                                className="text-slate-600 hover:text-slate-900 transition"
-                            >
-                                Features
-                            </a>
-                            <a
-                                href="#benefits"
-                                className="text-slate-600 hover:text-slate-900 transition"
-                            >
-                                Why EventFlow
-                            </a>
-                            <Link
-                                href="/events"
-                                className="text-slate-600 hover:text-slate-900 transition"
-                            >
-                                Browse Events
-                            </Link>
-                        </div>
-                        <div className="flex items-center gap-3">
-                            <Link
-                                href="/login"
-                                className="px-4 py-2 text-slate-700 hover:text-slate-900 font-medium transition"
-                            >
-                                Login
-                            </Link>
-                            <Link
-                                href="/register"
-                                className="px-4 py-2 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 transition"
-                            >
-                                Get Started
-                            </Link>
-                        </div>
-                    </div>
-                </div>
-            </nav>
+            <Navbar/>
 
             {/* Hero Section */}
             <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
