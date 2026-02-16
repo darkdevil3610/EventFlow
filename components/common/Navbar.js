@@ -48,6 +48,14 @@ export default function Navbar() {
             >
               Browse Events
             </Link>
+                <Link
+    href="/verify"
+    className="text-slate-400 hover:text-neon-cyan transition font-medium text-sm tracking-wide uppercase"
+  >
+    Verify Certificate
+  </Link>
+
+                
           </div>
 
           {/* Desktop Auth Buttons */}
@@ -128,6 +136,16 @@ export default function Navbar() {
                     className="w-full justify-center text-slate-300 border-white/10 bg-white/5"
                     onClick={() => signOut()}
                   >
+                      <Link
+  href="/verify"
+  className="text-slate-400 hover:text-neon-cyan hover:bg-white/5 px-4 py-2.5 rounded-lg transition font-medium text-sm tracking-wide uppercase"
+  onClick={() => setIsMenuOpen(false)}
+>
+  Verify Certificate
+</Link>
+
+
+                      
                     Logout
                   </Button>
                 ) : (
@@ -152,3 +170,5 @@ export default function Navbar() {
     </nav>
   );
 }
+
+
