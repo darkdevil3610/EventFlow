@@ -26,6 +26,14 @@ export default function LoginPage() {
             if (res.ok) {
                 const role = data.user?.role || "participant";
                 console.log("Login successful, redirecting to:", role);
+                // Store user info in localStorage for profile page
+                localStorage.setItem("user", JSON.stringify({
+                    id: data.user?._id,
+                    _id: data.user?._id,
+                    name: data.user?.name,
+                    email: data.user?.email,
+                    role: data.user?.role
+                }));
                 // Delay slightly to ensure cookie is set, then redirect
                 setTimeout(() => {
                     window.location.replace("/" + role);

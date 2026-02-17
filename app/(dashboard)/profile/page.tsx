@@ -18,32 +18,31 @@ export default function ProfilePage() {
       const parsedUser = JSON.parse(userData);
       setUser(parsedUser);
       setEditForm({ name: parsedUser.name || "", bio: parsedUser.bio || "" });
-      fetchUserData(parsedUser.id);
-    } else {
-      setLoading(false);
     }
+    // Always fetch user data from API - the middleware will provide the user ID via cookies
+    fetchUserData();
   }, []);
 
-  const fetchUserData = async (userId) => {
+  const fetchUserData = async () => {
     try {
-      // Fetch user profile
+      // Fetch user profile - API will get user ID from cookie
       const profileRes = await fetch("/api/auth/profile", {
-        headers: {
-          "x-user-id": userId
-        }
+        credentials: 'include'
       });
       
       if (profileRes.ok) {
         const profileData = await profileRes.json();
         setUser(profileData.user);
         setEditForm({ name: profileData.user.name || "", bio: profileData.user.bio || "" });
+        // Store user in localStorage for future visits
+        localStorage.setItem("user", JSON.stringify(profileData.user));
+      } else {
+        console.error('Failed to fetch profile:', profileRes.status);
       }
 
-      // Fetch user's team
-      const teamRes = await fetch(`/api/teams?userId=${userId}`, {
-        headers: {
-          "x-user-id": userId
-        }
+      // Fetch user's team - API will get user ID from cookie
+      const teamRes = await fetch("/api/teams", {
+        credentials: 'include'
       });
       
       if (teamRes.ok) {
@@ -61,14 +60,12 @@ export default function ProfilePage() {
 
   const handleSaveProfile = async () => {
     try {
-      const userData = localStorage.getItem("user");
-      const parsedUser = JSON.parse(userData);
-      
+      // API will get user ID from cookie
       const res = await fetch("/api/auth/profile", {
         method: "PUT",
+        credentials: 'include',
         headers: {
-          "Content-Type": "application/json",
-          "x-user-id": parsedUser.id
+          "Content-Type": "application/json"
         },
         body: JSON.stringify(editForm)
       });
@@ -195,8 +192,13 @@ export default function ProfilePage() {
                   <div>
                     {isEditing ? (
                      <FormField>
-  <Label>Field Name</Label>
-  <Input type="text" />
+  <Label>Full Name</Label>
+                        <Input 
+                          type="text" 
+                          value={editForm.name}
+                          onChange={(e) => setEditForm({ ...editForm, name: e.target.value })}
+                          placeholder="Enter your full name"
+                        />
 </FormField>
 
                     ) : (
