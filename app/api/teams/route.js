@@ -8,7 +8,24 @@ export async function GET(request) {
   try {
     await dbConnect();
     const { searchParams } = new URL(request.url);
-    const userId = searchParams.get('userId');
+    let userId = searchParams.get('userId');
+    
+    // If no userId in query params, try to get from cookie
+    if (!userId) {
+      const cookieHeader = request.headers.get("cookie");
+      if (cookieHeader) {
+        const tokenMatch = cookieHeader.match(/token=([^;]+)/);
+        if (tokenMatch) {
+          try {
+            const token = tokenMatch[1];
+            const payload = JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString());
+            userId = payload.userId;
+          } catch (e) {
+            console.error('Error decoding token:', e);
+          }
+        }
+      }
+    }
     
     let query = {};
     if (userId) {
