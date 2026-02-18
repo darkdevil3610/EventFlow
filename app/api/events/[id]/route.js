@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import dbConnect from "@/lib/db-connect";
 import Event from "@/models/Event";
-import { auth } from "@/auth";
+import { auth } from "@/lib/auth";
 
 export async function GET(request, { params }) {
     try {
@@ -34,11 +34,17 @@ export async function PUT(request, { params }) {
         await dbConnect();
         const body = await request.json();
 
-        const event = await Event.findByIdAndUpdate(id, body, { new: true });
-
-        if (!event) {
+        const currentEvent = await Event.findById(id);
+        if (!currentEvent) {
             return NextResponse.json({ error: "Event not found" }, { status: 404 });
         }
+
+        // Check ownership
+        if (session.user.role !== "admin" && currentEvent.organizer.toString() !== session.user.id) {
+            return NextResponse.json({ error: "Unauthorized: You can only edit your own events" }, { status: 403 });
+        }
+
+        const event = await Event.findByIdAndUpdate(id, body, { new: true });
 
         return NextResponse.json({ event });
     } catch (error) {
@@ -57,11 +63,18 @@ export async function DELETE(request, { params }) {
         }
 
         await dbConnect();
-        const event = await Event.findByIdAndDelete(id);
+        const event = await Event.findById(id);
 
         if (!event) {
             return NextResponse.json({ error: "Event not found" }, { status: 404 });
         }
+
+        // Check ownership
+        if (session.user.role !== "admin" && event.organizer.toString() !== session.user.id) {
+            return NextResponse.json({ error: "Unauthorized: You can only delete your own events" }, { status: 403 });
+        }
+
+        await Event.findByIdAndDelete(id);
 
         return NextResponse.json({ message: "Event deleted successfully" });
     } catch (error) {

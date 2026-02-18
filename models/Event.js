@@ -23,6 +23,25 @@ const EventSchema = new mongoose.Schema(
 
         rules: [String],
         tracks: [String],
+
+        // Comprehensive Event Details
+        judgingCriteria: [{
+            name: { type: String, required: true },
+            description: String,
+            maxScore: { type: Number, default: 10 }
+        }],
+        prizes: [{
+            title: String, // e.g., "1st Place"
+            description: String,
+            amount: String, // Cash or value
+        }],
+        sponsors: [{
+            name: String,
+            logo: String,
+            website: String,
+            tier: { type: String, enum: ["platinum", "gold", "silver", "bronze"], default: "bronze" }
+        }],
+
     },
     { timestamps: true }
 );

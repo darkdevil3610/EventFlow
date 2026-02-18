@@ -148,7 +148,7 @@ export default function EventDashboard() {
                             {/* Description */}
                             <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
                                 <h3 className="text-lg font-bold text-slate-900 mb-4">About Event</h3>
-                                <p className="text-slate-600 whitespace-pre-line">{event.description}</p>
+                                <p className="text-black whitespace-pre-line">{event.description}</p>
                             </div>
 
                             {/* Tracks */}

@@ -12,6 +12,14 @@ const UserSchema = new mongoose.Schema(
         },
         bio: String,
         avatar: String,
+
+        // Profile Info
+        skills: [String],
+        socialLinks: {
+            github: String,
+            linkedin: String,
+            website: String,
+        },
     },
     { timestamps: true }
 );

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import dbConnect from "@/lib/db-connect";
 import Event from "@/models/Event";
-import { auth } from "@/auth";
+import { auth } from "@/lib/auth";
 
 // GET all events
 export async function GET(request) {
@@ -31,6 +31,22 @@ export async function GET(request) {
             ]
           };
         }
+      } else if (role === "judge") {
+        // Judges see public events OR events they are assigned to
+        query = {
+          $or: [
+            { isPublic: true, status: { $in: ["upcoming", "ongoing"] } },
+            { judges: id }
+          ]
+        };
+      } else if (role === "mentor") {
+        // Mentors see public events OR events they are assigned to
+        query = {
+          $or: [
+            { isPublic: true, status: { $in: ["upcoming", "ongoing"] } },
+            { mentors: id }
+          ]
+        };
       }
       // Add other roles logic if needed
     }

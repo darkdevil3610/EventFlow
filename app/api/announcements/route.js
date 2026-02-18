@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import connectDB from "@/lib/db-connect";
 import Announcement from "@/models/Announcement";
-import { auth } from "@/auth";
+import { auth } from "@/lib/auth";
 
 /* GET — Fetch active announcements */
 export async function GET() {
