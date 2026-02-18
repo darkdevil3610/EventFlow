@@ -16,9 +16,11 @@ export default function RootLayout({ children }) {
         suppressHydrationWarning
       >
         <Providers>
-          <GlobalAnnouncements />
-          {children}
-        </ThemeProvider>
+          <ThemeProvider>
+            <GlobalAnnouncements />
+            {children}
+          </ThemeProvider>
+        </Providers>
       </body>
     </html>
   );

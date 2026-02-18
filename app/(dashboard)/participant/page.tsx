@@ -87,7 +87,6 @@ export default function ParticipantDashboard() {
           name: newTeamName,
           leaderId: user?.id,
           eventId: selectedEventId
-          eventId: selectedEventId
         })
       });
 
