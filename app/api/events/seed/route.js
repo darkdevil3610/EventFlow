@@ -1,7 +1,10 @@
+export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
+
 import { NextResponse } from "next/server";
 import dbConnect from "@/lib/db-connect";
 import Event from "@/models/Event";
-import { auth } from "@/auth";
+import { auth } from "@/lib/auth";
 
 const demoEvents = [
   {

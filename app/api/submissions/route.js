@@ -1,9 +1,12 @@
+export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
+
 import { NextResponse } from "next/server";
 import connectDB from "@/lib/db-connect";
 import Submission from "@/models/Submission";
 import Event from "@/models/Event";
 import Team from "@/models/Team";
-import { auth } from "@/auth";
+import { auth } from "@/lib/auth";
 import { z } from "zod";
 import { rateLimit } from "@/lib/rate-limit";
 
