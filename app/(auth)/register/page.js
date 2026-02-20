@@ -152,6 +152,47 @@ export default function RegisterPage() {
                 />
               </div>
 
+                    {formData.password && (
+  <div style={{ marginTop: "8px" }}>
+    <div
+      style={{
+        height: "6px",
+        borderRadius: "4px",
+        background: "#1f2937",
+        overflow: "hidden",
+      }}
+    >
+      <div
+        style={{
+          height: "100%",
+          width: `${(passwordStrength.score / 4) * 100}%`,
+          transition: "0.3s ease",
+          background:
+            passwordStrength.label === "Weak"
+              ? "#ef4444"
+              : passwordStrength.label === "Medium"
+              ? "#f59e0b"
+              : "#22c55e",
+        }}
+      />
+    </div>
+    <p
+      style={{
+        fontSize: "12px",
+        marginTop: "4px",
+        color:
+          passwordStrength.label === "Weak"
+            ? "#f87171"
+            : passwordStrength.label === "Medium"
+            ? "#fbbf24"
+            : "#4ade80",
+      }}
+    >
+      Strength: {passwordStrength.label}
+    </p>
+  </div>
+)}
+
               <div>
                 <label className="block text-sm font-medium text-slate-300 mb-1">
                   I am a
@@ -209,5 +250,6 @@ export default function RegisterPage() {
     </main>
   );
 }
+
 
 
