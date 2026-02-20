@@ -41,20 +41,19 @@ export async function POST(req) {
 
         // Parse the request body
         const body = await req.json();
-        const { id, event, team, title, description, repoLink, demoLink } = body;
 
         // --- UPDATE LOGIC ---
-        if (id) {
-            const existingSubmission = await Submission.findById(id);
+        if (body.id) {
+            const existingSubmission = await Submission.findById(body.id);
             if (!existingSubmission) {
                 return NextResponse.json({ error: "Submission not found" }, { status: 404 });
             }
 
             // Update fields
-            existingSubmission.title = title || existingSubmission.title;
-            existingSubmission.description = description || existingSubmission.description;
-            existingSubmission.repoLink = repoLink || existingSubmission.repoLink;
-            existingSubmission.demoLink = demoLink || existingSubmission.demoLink;
+            existingSubmission.title = body.title || existingSubmission.title;
+            existingSubmission.description = body.description || existingSubmission.description;
+            existingSubmission.repoLink = body.repoLink || existingSubmission.repoLink;
+            existingSubmission.demoLink = body.demoLink || existingSubmission.demoLink;
 
             await existingSubmission.save();
 
@@ -65,6 +64,7 @@ export async function POST(req) {
         }
 
         // --- CREATE LOGIC ---
+        const validation = submissionSchema.safeParse(body);
 
         if (!validation.success) {
             return NextResponse.json(

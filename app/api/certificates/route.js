@@ -42,7 +42,7 @@ export async function POST(req) {
 
     // Optional: Check if the user is the organizer of the event
     if (session.user.role !== "admin" && event.organizer && event.organizer.toString() !== session.user.id) {
-       return NextResponse.json(
+      return NextResponse.json(
         { error: "You are not authorized to generate certificates for this event" },
         { status: 403 }
       );

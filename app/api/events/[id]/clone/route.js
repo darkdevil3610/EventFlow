@@ -35,7 +35,7 @@ export async function POST(req, { params }) {
 
     // Only allow cloning if you are the organizer or an admin
     if (session.user.role !== "admin" && original.organizer && original.organizer.toString() !== session.user.id) {
-       return NextResponse.json(
+      return NextResponse.json(
         { error: "You can only clone your own events" },
         { status: 403 }
       );

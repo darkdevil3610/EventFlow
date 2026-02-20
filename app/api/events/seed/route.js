@@ -61,14 +61,14 @@ export async function POST() {
         { status: 403 }
       );
     }
-    
+
     // Check if events already exist
     const existingCount = await Event.countDocuments();
     if (existingCount > 0) {
       // Clear existing events first
       await Event.deleteMany({});
     }
-    
+
     // Create demo events
     // Add organizer if possible, defaulting to the admin running the seed
     const eventsWithOrganizer = demoEvents.map(event => ({
@@ -77,8 +77,8 @@ export async function POST() {
     }));
 
     const createdEvents = await Event.insertMany(eventsWithOrganizer);
-    
-    return NextResponse.json({ 
+
+    return NextResponse.json({
       message: `Created ${createdEvents.length} demo events`,
       events: createdEvents
     }, { status: 201 });

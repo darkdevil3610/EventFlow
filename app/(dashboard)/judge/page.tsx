@@ -1,4 +1,10 @@
-import { auth } from "@/auth";
+"use client";
+
+import { useSession } from "next-auth/react";
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { CheckCircle, AlertCircle, User, FileText, BarChart3, Trophy, Search, Users, Clock, Star, Eye, Calendar, MessageSquare, Save } from "lucide-react";
+import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import JudgeDashboardClient from "./JudgeDashboardClient";
 
