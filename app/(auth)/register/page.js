@@ -6,6 +6,9 @@ import Link from "next/link";
 import { ArrowRight, ArrowLeft } from "lucide-react";
 import Navbar from "@/components/common/Navbar";
 import Aurora from "@/components/common/Aurora";
+import LoadingSpinner from "@/components/common/LoadingSpinner";
+
+
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -32,6 +35,7 @@ export default function RegisterPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
     setStatus({ error: "", success: "", loading: true });
 
     try {
@@ -185,7 +189,14 @@ export default function RegisterPage() {
               disabled={status.loading}
               className="btn-neon w-full flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold tracking-wide text-sm"
             >
-              {status.loading ? "Creating Account..." : "Sign Up"}
+             {loading ? (
+  <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px" }}>
+    <LoadingSpinner size={16} />
+    Creating account...
+  </div>
+) : (
+  "Sign Up"
+)}
               {!status.loading && <ArrowRight className="w-4 h-4" />}
             </button>
 
@@ -205,3 +216,6 @@ export default function RegisterPage() {
     </main>
   );
 }
+
+
+
