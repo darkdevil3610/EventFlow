@@ -1,4 +1,7 @@
-import { auth } from "@/auth";
+export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
+
+import { auth } from "@/lib/auth";
 import dbConnect from "@/lib/db-connect";
 import Evaluation from "@/models/Evaluation";
 import Submission from "@/models/Submission";

@@ -1,7 +1,10 @@
+export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
+
 import { NextResponse } from "next/server";
 import dbConnect from "@/lib/db-connect";
 import Team from "@/models/Team";
-import { auth } from "@/auth";
+import { auth } from "@/lib/auth";
 
 // LEAVE a team
 export async function POST(request) {
